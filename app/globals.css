@@ -1,0 +1,174 @@
+@import "tailwindcss";
+
+/* Amsterdam Font Family */
+@font-face {
+  font-family: "Amsterdam";
+  src: url("/font/amsterdam.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Editor's Note Font Family */
+@font-face {
+  font-family: "Editor's Note";
+  src: url("/font/Editor's Note Family - Desktop/OTF/Editor'sNote-Regular.otf")
+    format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Editor's Note";
+  src: url("/font/Editor's Note Family - Desktop/OTF/Editor'sNote-Italic.otf")
+    format("opentype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Editor's Note";
+  src: url("/font/Editor's Note Family - Desktop/OTF/Editor'sNote-Thin.otf")
+    format("opentype");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Editor's Note";
+  src: url("/font/Editor's Note Family - Desktop/OTF/Editor'sNote-ThinItalic.otf")
+    format("opentype");
+  font-weight: 100;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Editor's Note";
+  src: url("/font/Editor's Note Family - Desktop/OTF/Editor'sNote-Hairline.otf")
+    format("opentype");
+  font-weight: 50;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Editor's Note";
+  src: url("/font/Editor's Note Family - Desktop/OTF/Editor'sNote-HairlineItalic.otf")
+    format("opentype");
+  font-weight: 50;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Editor's Note";
+  src: url("/font/Editor's Note Family - Desktop/OTF/Editor'sNote-Extralight.otf")
+    format("opentype");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Editor's Note";
+  src: url("/font/Editor's Note Family - Desktop/OTF/Editor'sNote-ExtralightItalic.otf")
+    format("opentype");
+  font-weight: 200;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Editor's Note";
+  src: url("/font/Editor's Note Family - Desktop/OTF/Editor'sNote-Light.otf")
+    format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Editor's Note";
+  src: url("/font/Editor's Note Family - Desktop/OTF/Editor'sNote-LightItalic.otf")
+    format("opentype");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Editor's Note";
+  src: url("/font/Editor's Note Family - Desktop/OTF/Editor'sNote-Medium.otf")
+    format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Editor's Note";
+  src: url("/font/Editor's Note Family - Desktop/OTF/Editor'sNote-MediumItalic.otf")
+    format("opentype");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Editor's Note";
+  src: url("/font/Editor's Note Family - Desktop/OTF/Editor'sNote-Semibold.otf")
+    format("opentype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Editor's Note";
+  src: url("/font/Editor's Note Family - Desktop/OTF/Editor'sNote-SemiboldItalic.otf")
+    format("opentype");
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Editor's Note";
+  src: url("/font/Editor's Note Family - Desktop/OTF/Editor'sNote-Bold.otf")
+    format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Editor's Note";
+  src: url("/font/Editor's Note Family - Desktop/OTF/Editor'sNote-BoldItalic.otf")
+    format("opentype");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Editor's Note", sans-serif;
+}
+
+.font-amsterdam {
+  font-family: "Amsterdam", sans-serif;
+}
