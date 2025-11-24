@@ -151,22 +151,28 @@ export default function Home() {
             <div>
               <motion.button
                 className="
-        relative inline-block
-        focus:outline-none
-      "
+          relative inline-block
+          focus:outline-none
+        "
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                onClick={() =>
+                  window.open(
+                    "https://linktr.ee/stableOG?utm_source=linktree_profile_share&ltsid=e1b7896e-d6d7-49f8-81a9-01be4a6998d5",
+                    "_blank"
+                  )
+                }
               >
                 {/* Back layer */}
                 <span
                   className="
-          absolute inset-0
-          translate-x-3 translate-y-2
-          border
-          rounded-bl-[6px] rounded-tr-[6px] rounded-br-[3px] rounded-tl-[3px]
-          border-[#008079]
-          bg-transparent
-        "
+            absolute inset-0
+            translate-x-3 translate-y-2
+            border
+            rounded-bl-[6px] rounded-tr-[6px] rounded-br-[3px] rounded-tl-[3px]
+            border-[#008079]
+            bg-transparent
+          "
                   style={{
                     transform: "skewX(-20deg)",
                   }}
@@ -175,29 +181,29 @@ export default function Home() {
                 {/* Front layer - using transform to preserve border */}
                 <span
                   className="
-          relative
-          inline-flex
-          px-8 py-2
-                    rounded-bl-[6px] rounded-tr-[6px] rounded-br-[3px]
-rounded-tl-[3px]
-          bg-[#89E5E0]
-          border border-[#008079]
-          items-center justify-center
-          shadow-sm
-        "
+            relative
+            inline-flex
+            px-8 py-2
+                      rounded-bl-[6px] rounded-tr-[6px] rounded-br-[3px]
+  rounded-tl-[3px]
+            bg-[#89E5E0]
+            border border-[#008079]
+            items-center justify-center
+            shadow-sm
+          "
                   style={{
                     transform: "skewX(-20deg)",
                   }}
                 >
                   <span
                     className="
-            text-[16px]
-            italic
-            text-black
-            tracking-tight
-            font-medium
-            whitespace-nowrap
-          "
+              text-[16px]
+              italic
+              text-black
+              tracking-tight
+              font-medium
+              whitespace-nowrap
+            "
                     style={{
                       transform: "skewX(20deg)",
                     }}
@@ -620,22 +626,34 @@ rounded-tl-[3px]
               }
               transition={{ duration: 0.5, delay: 0.5 }}
             >
-              <motion.img
-                src="/discord.svg"
-                className="w-[30px] lg:w-auto"
-                alt=""
-                whileHover={{ scale: 1.2, rotate: 5 }}
-                whileTap={{ scale: 0.9 }}
-                transition={{ type: "spring", stiffness: 400 }}
-              />
-              <motion.img
-                src="/x.svg"
-                className="w-[30px] lg:w-auto"
-                alt=""
-                whileHover={{ scale: 1.2, rotate: -5 }}
-                whileTap={{ scale: 0.9 }}
-                transition={{ type: "spring", stiffness: 400 }}
-              />
+              <a
+                href="https://discord.com/invite/FSBn8rB3uy"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <motion.img
+                  src="/discord.svg"
+                  className="w-[30px] lg:w-auto"
+                  alt=""
+                  whileHover={{ scale: 1.2, rotate: 5 }}
+                  whileTap={{ scale: 0.9 }}
+                  transition={{ type: "spring", stiffness: 400 }}
+                />
+              </a>
+              <a
+                href="https://x.com/StableOG_"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <motion.img
+                  src="/x.svg"
+                  className="w-[30px] lg:w-auto"
+                  alt=""
+                  whileHover={{ scale: 1.2, rotate: -5 }}
+                  whileTap={{ scale: 0.9 }}
+                  transition={{ type: "spring", stiffness: 400 }}
+                />
+              </a>
             </motion.div>
           </motion.div>
         </div>
