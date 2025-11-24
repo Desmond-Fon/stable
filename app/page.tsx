@@ -3,10 +3,21 @@
 
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
+import { motion, useInView } from "framer-motion";
 
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const infoRef = useRef<HTMLDivElement>(null);
+  const mintDetailsRef = useRef<HTMLDivElement>(null);
+  const footerRef = useRef<HTMLElement>(null);
+
+  const isInfoInView = useInView(infoRef, { once: true, margin: "-100px" });
+  const isMintDetailsInView = useInView(mintDetailsRef, {
+    once: true,
+    margin: "-100px",
+  });
+  const isFooterInView = useInView(footerRef, { once: true, margin: "-100px" });
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -42,42 +53,109 @@ export default function Home() {
       });
     }
   };
+
+  // Animation variants
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+  };
+
+  const scaleIn = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.6 } },
+  };
+
+  const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
+  const staggerItem = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  };
   return (
     <div
       id="home"
       className="bg-[#89E5E0] min-h-screen pt-10 lg:pt-[70px] overflow-x-hidden"
     >
       <div className="container mx-auto lg:min-h-screen">
-        <img
+        <motion.img
           src="/wave.svg"
           alt=""
           className="absolute top-[6%] lg:top-[10%] left-0 w-full object-cover"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
         />
-        <div className="relative mx-auto hidden lg:flex justify-center items-center">
-          <div className="absolute -bottom-3 bg-white left-[51%] -translate-x-1/2 w-[93%] lg:w-[70%] h-full border-2 border-black rounded-[7px] z-0 flex justify-center items-center"></div>
-          <div className="border-2 border-black bg-white relative z-10 rounded-[7px] flex justify-between items-center overflow-hidden w-[90%] lg:w-[70%] py-[50px] lg:py-[16px] px-[16px] lg:px-[140px]">
-            <img src="/logo.svg" alt="logo" className="" />
+        <motion.div
+          className="relative mx-auto hidden lg:flex justify-center items-center"
+          initial="hidden"
+          animate="visible"
+          variants={fadeInUp}
+        >
+          <motion.div
+            className="absolute -bottom-3 bg-white left-[51%] -translate-x-1/2 w-[93%] lg:w-[70%] h-full border-2 border-black rounded-[7px] z-0 flex justify-center items-center"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          ></motion.div>
+          <motion.div
+            className="border-2 border-black bg-white relative z-10 rounded-[7px] flex justify-between items-center overflow-hidden w-[90%] lg:w-[70%] py-[50px] lg:py-[16px] px-[16px] lg:px-[140px]"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
+            <motion.img
+              src="/logo.svg"
+              alt="logo"
+              className=""
+              whileHover={{ scale: 1.1 }}
+              transition={{ type: "spring", stiffness: 400 }}
+            />
             <nav className="flex items-center gap-[28px] text-lg italic font-medium">
-              <Link href="#home" onClick={(e) => handleNavClick(e, "#home")}>
-                Home
-              </Link>
-              <Link href="#info" onClick={(e) => handleNavClick(e, "#info")}>
-                Info
-              </Link>
-              <Link
-                href="#mint-details"
-                onClick={(e) => handleNavClick(e, "#mint-details")}
+              <motion.div
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
               >
-                Mint details
-              </Link>
+                <Link href="#home" onClick={(e) => handleNavClick(e, "#home")}>
+                  Home
+                </Link>
+              </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Link href="#info" onClick={(e) => handleNavClick(e, "#info")}>
+                  Info
+                </Link>
+              </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Link
+                  href="#mint-details"
+                  onClick={(e) => handleNavClick(e, "#mint-details")}
+                >
+                  Mint details
+                </Link>
+              </motion.div>
             </nav>
 
             <div>
-              <button
+              <motion.button
                 className="
         relative inline-block
         focus:outline-none
       "
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
                 {/* Back layer */}
                 <span
@@ -127,50 +205,79 @@ rounded-tl-[3px]
                     Mint StableOG
                   </span>
                 </span>
-              </button>
+              </motion.button>
             </div>
-          </div>
-        </div>
-        <div
+          </motion.div>
+        </motion.div>
+        <motion.div
           className="flex justify-between items-center lg:hidden px-10 relative z-50"
           ref={menuRef}
+          initial="hidden"
+          animate="visible"
+          variants={fadeInUp}
         >
-          <img src="/logo.svg" alt="" />
-          <button onClick={() => setIsMenuOpen(!isMenuOpen)}>
+          <motion.img
+            src="/logo.svg"
+            alt=""
+            whileHover={{ scale: 1.1 }}
+            transition={{ type: "spring", stiffness: 400 }}
+          />
+          <motion.button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+          >
             <img src="/hamburger.svg" alt="" />
-          </button>
+          </motion.button>
 
           {/* Mobile Menu */}
           {isMenuOpen && (
-            <div className="absolute top-full right-0 mt-2 bg-white border-2 border-black rounded-[7px] shadow-lg w-full">
+            <motion.div
+              className="absolute top-full right-0 mt-2 bg-white border-2 border-black rounded-[7px] shadow-lg w-full"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.3 }}
+            >
               <nav className="flex flex-col p-4 gap-4">
-                <Link
-                  href="#home"
-                  className="text-lg italic font-medium hover:text-[#89E5E0]"
-                  onClick={(e) => handleNavClick(e, "#home")}
-                >
-                  Home
-                </Link>
-                <Link
-                  href="#info"
-                  className="text-lg italic font-medium hover:text-[#89E5E0]"
-                  onClick={(e) => handleNavClick(e, "#info")}
-                >
-                  Info
-                </Link>
-                <Link
-                  href="#mint-details"
-                  className="text-lg italic font-medium hover:text-[#89E5E0]"
-                  onClick={(e) => handleNavClick(e, "#mint-details")}
-                >
-                  Mint details
-                </Link>
+                <motion.div whileHover={{ x: 5 }} whileTap={{ scale: 0.95 }}>
+                  <Link
+                    href="#home"
+                    className="text-lg italic font-medium hover:text-[#89E5E0]"
+                    onClick={(e) => handleNavClick(e, "#home")}
+                  >
+                    Home
+                  </Link>
+                </motion.div>
+                <motion.div whileHover={{ x: 5 }} whileTap={{ scale: 0.95 }}>
+                  <Link
+                    href="#info"
+                    className="text-lg italic font-medium hover:text-[#89E5E0]"
+                    onClick={(e) => handleNavClick(e, "#info")}
+                  >
+                    Info
+                  </Link>
+                </motion.div>
+                <motion.div whileHover={{ x: 5 }} whileTap={{ scale: 0.95 }}>
+                  <Link
+                    href="#mint-details"
+                    className="text-lg italic font-medium hover:text-[#89E5E0]"
+                    onClick={(e) => handleNavClick(e, "#mint-details")}
+                  >
+                    Mint details
+                  </Link>
+                </motion.div>
               </nav>
-            </div>
+            </motion.div>
           )}
-        </div>
+        </motion.div>
 
-        <div className="mt-[30px] lg:mt-[150px] relative z-10 flex justify-center items-center">
+        <motion.div
+          className="mt-[30px] lg:mt-[150px] relative z-10 flex justify-center items-center"
+          initial="hidden"
+          animate="visible"
+          variants={scaleIn}
+        >
           {/* <h1
             className="text-4xl lg:text-[270px] text-center font-amsterdam leading-[150px] text-black"
             style={{
@@ -182,15 +289,34 @@ rounded-tl-[3px]
             <span className="">stable og</span> <br />
             collection
           </h1> */}
-          <img src="/text.svg" className="lg:w-auto w-[230px]" alt="" />
-        </div>
+          <motion.img
+            src="/text.svg"
+            className="lg:w-auto w-[230px]"
+            alt=""
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            whileHover={{ scale: 1.05 }}
+          />
+        </motion.div>
       </div>
-      <div className="relative z-10 -mt-[50px] lg:-mt-[480px]">
+      <motion.div
+        className="relative z-10 -mt-[50px] lg:-mt-[480px]"
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.6 }}
+      >
         <img src="/hero.svg" className="w-full h-full object-cover" alt="" />
-      </div>
+      </motion.div>
 
       {/* Slider Section */}
-      <div className="relative z-10 bg-white overflow-hidden -mt-[8%]">
+      <motion.div
+        className="relative z-10 bg-white overflow-hidden -mt-[8%]"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.6 }}
+      >
         {/* Repeating Stable Pattern */}
         <div className="relative py-3 lg:py-10 border-y-2 overflow-hidden">
           <div className="flex gap-11 animate-scroll whitespace-nowrap">
@@ -278,12 +404,35 @@ rounded-tl-[3px]
             />
           </div>
         </div>
-      </div>
+      </motion.div>
 
-      <div id="info" className="pt-16 lg:pt-[112px] container mx-auto">
+      <motion.div
+        id="info"
+        className="pt-16 lg:pt-[112px] container mx-auto"
+        ref={infoRef}
+        initial="hidden"
+        animate={isInfoInView ? "visible" : "hidden"}
+        variants={fadeInUp}
+      >
         <div className="relative mx-auto px-6 lg:px-0 flex justify-start lg:justify-center items-center">
-          <div className="absolute -top-8 bg-white left-[55%] lg:left-[55%] -translate-x-1/2 w-[80%] lg:w-[75%] h-full border-2 border-black rounded-[15px] lg:rounded-[24px] z-0 flex justify-center items-center"></div>
-          <div className="border-2 border-black bg-white relative z-10 rounded-[15px] lg:rounded-[24px] overflow-hidden w-[90%] lg:w-[77%] p-6 pb-[180px] lg:p-[120px] lg:pb-[250px]">
+          <motion.div
+            className="absolute -top-8 bg-white left-[55%] lg:left-[55%] -translate-x-1/2 w-[80%] lg:w-[75%] h-full border-2 border-black rounded-[15px] lg:rounded-[24px] z-0 flex justify-center items-center"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={
+              isInfoInView
+                ? { opacity: 1, scale: 1 }
+                : { opacity: 0, scale: 0.95 }
+            }
+            transition={{ duration: 0.5, delay: 0.2 }}
+          ></motion.div>
+          <motion.div
+            className="border-2 border-black bg-white relative z-10 rounded-[15px] lg:rounded-[24px] overflow-hidden w-[90%] lg:w-[77%] p-6 pb-[180px] lg:p-[120px] lg:pb-[250px]"
+            initial={{ opacity: 0, y: 30 }}
+            animate={
+              isInfoInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }
+            }
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
             <p className="text-2xl lg:text-[40px] relative z-10">
               <img
                 src="/logo.svg"
@@ -352,36 +501,145 @@ rounded-tl-[3px]
               className="lg:hidden lg:w-auto absolute bottom-0 right-[45%]"
               alt=""
             />
-          </div>
+          </motion.div>
         </div>
-      </div>
+      </motion.div>
 
-      <div
+      <motion.div
         id="mint-details"
-        className="mt-[64px] lg:mt-[70px] container mx-auto ml-6 lg:ml-[15%]"
+        className="mt-[64px] lg:mt-[70px] container mx-auto flex flex-col lg:flex-row justify-center items-stretch gap-[20px] lg:gap-[30px] px-4 lg:px-0"
+        ref={mintDetailsRef}
+        initial="hidden"
+        animate={isMintDetailsInView ? "visible" : "hidden"}
+        variants={staggerContainer}
       >
-        <div className="bg-white container py-[150px] lg:py-[180px] w-[60%] lg:w-[20%] rounded-[12px] border lg:border-2 border-black"></div>
-      </div>
+        <motion.div
+          className="w-full lg:w-[40%] bg-white rounded-[12px] border-2 border-black p-4 lg:p-7 flex flex-col gap-4"
+          variants={staggerItem}
+          whileHover={{ scale: 1.02, y: -5 }}
+          transition={{ type: "spring", stiffness: 300 }}
+        >
+          <motion.img
+            src="/road1.svg"
+            alt=""
+            className="w-full h-auto"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={
+              isMintDetailsInView
+                ? { opacity: 1, scale: 1 }
+                : { opacity: 0, scale: 0.9 }
+            }
+            transition={{ duration: 0.5, delay: 0.2 }}
+          />
+          <div className="pl-0 lg:pl-6">
+            <p className="text-base lg:text-xl leading-[24px] lg:leading-[35px] tracking-wider">
+              StableOG flips that narrative, it&apos;s built on preservation,
+              participation, and purpose. <br />
+              Every holder contributes to a broader mission: making stability
+              the new cool in Web3.
+            </p>
+          </div>
+        </motion.div>
+        <motion.div
+          className="w-full lg:w-[40%] bg-white rounded-[12px] border-2 border-black p-4 lg:p-7 flex flex-col gap-4"
+          variants={staggerItem}
+          whileHover={{ scale: 1.02, y: -5 }}
+          transition={{ type: "spring", stiffness: 300 }}
+        >
+          <motion.img
+            src="/road2.svg"
+            alt=""
+            className="w-full h-auto"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={
+              isMintDetailsInView
+                ? { opacity: 1, scale: 1 }
+                : { opacity: 0, scale: 0.9 }
+            }
+            transition={{ duration: 0.5, delay: 0.4 }}
+          />
+          <div className="pl-0 lg:pl-6">
+            <p className="text-base lg:text-xl leading-[24px] lg:leading-[35px] tracking-wider">
+              StableOG becomes a status mark a representation of early believers
+              who chose stability over hype.
+            </p>
+          </div>
+        </motion.div>
+      </motion.div>
 
-      <footer className="mt-[120px] pb-[170px] lg:pb-[90px] relative">
-        <img
+      <motion.footer
+        className="mt-[60px] lg:mt-[120px] pb-[170px] lg:pb-[90px] relative"
+        ref={footerRef}
+        initial="hidden"
+        animate={isFooterInView ? "visible" : "hidden"}
+        variants={fadeInUp}
+      >
+        <motion.img
           src="/foot.svg"
           alt=""
           className="absolute w-[70%] lg:w-auto bottom-0 right-0 z-10"
+          initial={{ opacity: 0, x: 50 }}
+          animate={
+            isFooterInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }
+          }
+          transition={{ duration: 0.6, delay: 0.2 }}
         />
         <div className="container mx-auto ml-[10%] relative z-0 w-[70%]">
-          <img src="/footerBg.svg" alt="" />
-          <div className="absolute flex flex-col gap-3 lg:gap-[40px] top-[22px] lg:top-[85px] left-[22px] lg:left-[120px]">
-            <p className="text-[28px] lg:text-[105px] leading-[30px] lg:leading-[100px]">
+          <motion.img
+            src="/footerBg.svg"
+            alt=""
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={
+              isFooterInView
+                ? { opacity: 1, scale: 1 }
+                : { opacity: 0, scale: 0.95 }
+            }
+            transition={{ duration: 0.5 }}
+          />
+          <motion.div
+            className="absolute flex flex-col gap-3 lg:gap-[40px] top-[22px] lg:top-[85px] left-[22px] lg:left-[120px]"
+            initial={{ opacity: 0, y: 20 }}
+            animate={
+              isFooterInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
+            }
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
+            <motion.p
+              className="text-[28px] lg:text-[105px] leading-[30px] lg:leading-[100px]"
+              initial={{ opacity: 0 }}
+              animate={isFooterInView ? { opacity: 1 } : { opacity: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+            >
               Join The <br /> Community
-            </p>
-            <div className="flex gap-5 lg:gap-10 items-center">
-              <img src="/discord.svg" className="w-[30px] lg:w-auto" alt="" />
-              <img src="/x.svg" className="w-[30px] lg:w-auto" alt="" />
-            </div>
-          </div>
+            </motion.p>
+            <motion.div
+              className="flex gap-5 lg:gap-10 items-center"
+              initial={{ opacity: 0, x: -20 }}
+              animate={
+                isFooterInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }
+              }
+              transition={{ duration: 0.5, delay: 0.5 }}
+            >
+              <motion.img
+                src="/discord.svg"
+                className="w-[30px] lg:w-auto"
+                alt=""
+                whileHover={{ scale: 1.2, rotate: 5 }}
+                whileTap={{ scale: 0.9 }}
+                transition={{ type: "spring", stiffness: 400 }}
+              />
+              <motion.img
+                src="/x.svg"
+                className="w-[30px] lg:w-auto"
+                alt=""
+                whileHover={{ scale: 1.2, rotate: -5 }}
+                whileTap={{ scale: 0.9 }}
+                transition={{ type: "spring", stiffness: 400 }}
+              />
+            </motion.div>
+          </motion.div>
         </div>
-      </footer>
+      </motion.footer>
     </div>
   );
 }
